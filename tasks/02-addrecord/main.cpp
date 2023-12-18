@@ -13,6 +13,7 @@ using namespace std;
 int findArg(int argc, char* argv[], string pattern);
 bool isLastArg(int argc, int argi);
 void addRecord(string fileName, int sid, string name, int phoneNumber, vector<float> grades, vector<string> enrollments, int gradesLen);
+bool isSidInDb(string fileName, int sid);
 
 /*
  * Adds a NEW user to the end of an existing database file or the start of a new file
@@ -150,6 +151,7 @@ int main(int argc, char *argv[])
         cout << "Cannot open file " << dataBaseName << "\n";
         return EXIT_FAILURE;
     }
+    ip.close();
 
     int sidArgInt = findArg(argc, argv, "-sid");
     if (!sidArgInt || isLastArg(argc, sidArgInt)) {
@@ -168,13 +170,41 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
     // we know its a number
+    // if sid is > 0
+    if (sid < 1) {
+		cout << "Please proviude a student ID as an int greater then 0\n";
+    }
+    // if sid is unique
+    if (isSidInDb(dataBaseName, sid)) 
+    {
+        cout << "Please proviude a unique student ID\n";
+    	return EXIT_FAILURE;
+    }
 
     int nameArgInt = findArg(argc, argv, "-n");
     if (!nameArgInt || isLastArg(argc, nameArgInt)) {
 		cout << "Please proviude a student name with -n <name>\n";
     }
 
-    string name = argv[nameArgInt + 1];
+    string name = "";
+    int nameCount = 0;
+    for (int i = nameArgInt + 1; i < argc; i++) {
+        if (argv[i][0] == '-' || isLastArg(argc, i - 1)) {
+            if (nameCount < 2) 
+            {
+                cout << "Please provide a 2 or more words name\n";
+                return EXIT_FAILURE;
+            }
+
+            break;
+        }
+
+        nameCount += 1;
+        name += argv[i];
+        name += " ";
+    }
+    // name needs to be 2+ words
+
 
     // 1 && bigger then truethy
     // 0 and below is falsey
@@ -254,12 +284,12 @@ int main(int argc, char *argv[])
 void addRecord(string fileName, int sid, string name, int phone, vector<float> grades, vector<string> enrollments, int gradesLen) {
     string newRecord  = "#RECORD\n";
     newRecord += " #SID\n";
-    newRecord += "     " + to_string(sid) + "\n";
-    newRecord += " #NAME\n";
-    newRecord += "     " + name + "\n";
+    newRecord += "     " + to_string(sid);
+    newRecord += "\n #NAME\n";
+    newRecord += "     " + name;
 
     if (gradesLen) {
-        newRecord += " #ENROLLMENTS\n";
+        newRecord += "\n #ENROLLMENTS\n";
         newRecord += "     ";
         for (int i = 0; i < gradesLen; i++) {
             newRecord += enrollments[i] + " ";
@@ -276,7 +306,7 @@ void addRecord(string fileName, int sid, string name, int phone, vector<float> g
 		newRecord += " #PHONE\n";
 		newRecord += "     " + to_string(phone) + "\n";
 	}
-    newRecord += "\n";
+    newRecord += "\n\n";
 
     ifstream inFile(fileName);
 
@@ -313,4 +343,25 @@ int findArg(int argc, char* argv[], string pattern)
 bool isLastArg(int argc, int argi)
 {
 	return argi + 1 == argc;
+}
+
+bool isSidInDb(string fileName, int sid) {
+	ifstream inFile(fileName);
+
+	string line;
+
+    while (getline(inFile, line)) {
+        if (line == " #SID") {
+			getline(inFile, line);
+            if (stoi(line) == sid) {
+				cout << "Student ID already in database\n";
+                inFile.close();
+				return true;
+			}
+		}
+	}
+
+    inFile.close();
+
+	return false;
 }
