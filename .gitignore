@@ -2,3 +2,5 @@
 *.log
 *.idb
 *.vsidx
+.DS_Store
+.vs
