@@ -1,0 +1,20 @@
+#RECORD
+ #SID
+     1
+ #NAME
+     Bob
+ #ENROLLMENTS
+     COMP comp100  
+#GRADES
+     999.000000 123.000000 
+
+#RECORD
+ #SID
+     1
+ #NAME
+     Bob
+ #ENROLLMENTS
+     COMP  
+#GRADES
+     999.000000 
+
