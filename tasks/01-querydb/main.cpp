@@ -275,8 +275,8 @@ int main(int argc, char *argv[])
             for (Record& r : db) {
                 if (r.SID == sid) {
 
-                    int wantName = findArg(argc, argv, "-n");
-                    if (wantName) {
+                    int wantName = findArg(argc, argv, "-n"); // If the name flag exists print name
+                    if (wantName) { 
                         cout << "Name: " << r.name << endl;
                     }
 

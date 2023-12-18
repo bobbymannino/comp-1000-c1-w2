@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
         cout << "Please proviude a student ID with -sid <id>\n";
 		return EXIT_FAILURE;
     }
-
+    // we know there is a sid
   
     int sid;
 
@@ -167,6 +167,7 @@ int main(int argc, char *argv[])
 		cout << "Please proviude a student ID as an int\n";
 		return EXIT_FAILURE;
 	}
+    // we know its a number
 
     int nameArgInt = findArg(argc, argv, "-n");
     if (!nameArgInt || isLastArg(argc, nameArgInt)) {
@@ -174,6 +175,11 @@ int main(int argc, char *argv[])
     }
 
     string name = argv[nameArgInt + 1];
+
+    // 1 && bigger then truethy
+    // 0 and below is falsey
+    
+    // Below this we know there is a name and a sid thats a number
 
     int phoneArgInt = findArg(argc, argv, "-p");
     int phone = 0;
@@ -258,7 +264,7 @@ void addRecord(string fileName, int sid, string name, int phone, vector<float> g
         for (int i = 0; i < gradesLen; i++) {
             newRecord += enrollments[i] + " ";
         }
-        newRecord += " \n#GRADES\n";
+        newRecord += "\n #GRADES\n";
         newRecord += "     ";
         for (int i = 0; i < gradesLen; i++) {
             newRecord += to_string(grades[i]) + " ";

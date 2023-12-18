@@ -1,5 +1,41 @@
 #RECORD
  #SID
+     123458888
+ #NAME
+     bob
+ #ENROLLMENTS
+     COMP1000 COMP2000  
+#GRADES
+     100.000000 200.000000 
+ #PHONE
+     34567567
+
+#RECORD
+ #SID
+     123458888
+ #NAME
+     bob
+ #PHONE
+     34567567
+
+#RECORD
+ #SID
+     12345
+ #NAME
+     bob
+ #PHONE
+     34567567
+
+#RECORD
+ #SID
+     12345
+ #NAME
+     bob
+ #PHONE
+     34567567
+
+#RECORD
+ #SID
      1
  #NAME
      Bob
@@ -10,7 +46,7 @@
 
 #RECORD
  #SID
-     1
+     12
  #NAME
      Bob
  #ENROLLMENTS
