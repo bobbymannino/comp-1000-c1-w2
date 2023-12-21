@@ -82,7 +82,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="labelNAME">
+         <widget class="QLabel" name="nameLabel">
           <property name="text">
            <string>Foo Bar</string>
           </property>
@@ -197,7 +197,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>37</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
