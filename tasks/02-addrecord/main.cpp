@@ -304,7 +304,7 @@ int countOf(string arg, char* argv[], int argc)
 }
 
 void addRecord(string fileName, int sid, string name, int phone, vector<float> grades, vector<string> enrollments, int gradesLen) {
-    string newRecord  = "#RECORD\n";
+    string newRecord  = "\n\n#RECORD\n";
     newRecord += " #SID\n";
     newRecord += "     " + to_string(sid);
     newRecord += "\n #NAME\n";
@@ -328,21 +328,24 @@ void addRecord(string fileName, int sid, string name, int phone, vector<float> g
 		newRecord += " #PHONE\n";
 		newRecord += "     " + to_string(phone) + "\n";
 	}
-    newRecord += "\n\n";
 
     ifstream inFile(fileName);
 
     string line;
 
+    string currentRecords = "";
+
     while (getline(inFile, line)) {
-        newRecord += line + "\n";
+        currentRecords += line + "\n";
     }
 
     inFile.close();
 
     ofstream outFile(fileName);
 
-    outFile << newRecord;
+    currentRecords += newRecord;
+
+    outFile << currentRecords;
 
     outFile.close();
 
