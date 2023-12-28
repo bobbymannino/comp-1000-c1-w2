@@ -244,6 +244,11 @@ int main(int argc, char *argv[])
     //Option to display data ALL DATA
     //*******************************
     if (findArg(argc, argv, "-showAll")) {
+        int showAllCount = countOf("-showAll", argv, argc);
+        if (showAllCount > 1) {
+			cerr << "Please provide only one -showAll flag" << endl;
+			return EXIT_FAILURE;
+		}
         for (Record& r : db) {
             printRecord(r);
             cout << endl;
@@ -254,6 +259,11 @@ int main(int argc, char *argv[])
     //Option to display data from one record with a given student ID
     //**************************************************************
     p = findArg(argc, argv, "-sid");
+    int pCount = countOf("-sid", argv, argc);
+    if (pCount > 1) {
+		cerr << "Please provide only one -sid flag" << endl;
+		return EXIT_FAILURE;
+	}
     if (p) {
         //Are there more parameters to follow?
         if (p == (argc - 1)) {
@@ -277,11 +287,22 @@ int main(int argc, char *argv[])
 
                     int wantName = findArg(argc, argv, "-n"); // If the name flag exists print name
                     if (wantName) { 
+                        int wantNameCount = countOf("-n", argv, argc);
+                        if (wantNameCount > 1) {
+                            cerr << "Please provide only one -n flag" << endl;
+                            return EXIT_FAILURE;
+                        }
+
                         cout << "Name: " << r.name << endl;
                     }
 
                     int wantGrades = findArg(argc, argv, "-g");
                     if (wantGrades) {
+                        int wantGradesCount = countOf("-g", argv, argc);
+                        if (wantGradesCount > 1) {
+                            cerr << "Please provide only one -g flag" << endl;
+                            return EXIT_FAILURE;
+                        }
                         for (int i = 0; i < r.enrollments.size(); i++) {
 							cout << "Course: " << r.enrollments[i] << " - " << r.grades[i] << endl;
 						}
@@ -289,6 +310,11 @@ int main(int argc, char *argv[])
 
                     int wantPhone = findArg(argc, argv, "-p");
                     if (wantPhone) {
+                        int wantPhoneCount = countOf("-p", argv, argc);
+                        if (wantPhoneCount > 1) {
+                            cerr << "Please provide only one -p flag" << endl;
+                            return EXIT_FAILURE;
+                        }
                         cout << "Phone Number: " << r.phone << endl;
                     }
 
@@ -320,6 +346,18 @@ int main(int argc, char *argv[])
     //**************************************************************
 
     return EXIT_SUCCESS;
+}
+
+// A function to count the amount of times a string apears
+int countOf(string arg, char *argv[], int argc)
+{
+    int count = 0;
+    for (int i = 0; i < argc; i++) {
+        string s1(argv[i]);
+
+        if (arg == s1) count++;
+	}
+	return count;
 }
 
 // Find an argument on the command line and return the location
