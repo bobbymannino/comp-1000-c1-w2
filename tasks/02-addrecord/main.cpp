@@ -14,6 +14,7 @@ int findArg(int argc, char* argv[], string pattern);
 bool isLastArg(int argc, int argi);
 void addRecord(string fileName, int sid, string name, int phoneNumber, vector<float> grades, vector<string> enrollments, int gradesLen);
 bool isSidInDb(string fileName, int sid);
+int countOf(string arg, char* argv[], int argc);
 
 /*
  * Adds a NEW user to the end of an existing database file or the start of a new file
@@ -153,6 +154,15 @@ int main(int argc, char *argv[])
     }
     ip.close();
 
+    vector<string> flags = {"-sid", "-name", "-phone", "-modulecodes", "-grades"};
+    for (string flag : flags)
+    {
+        if (countOf(flag, argv, argc) > 1) {
+            cerr << "Please provide only one " << flag << " flag" << endl;
+            return EXIT_FAILURE;
+        }
+    }
+
     int sidArgInt = findArg(argc, argv, "-sid");
     if (!sidArgInt || isLastArg(argc, sidArgInt)) {
         cout << "Please proviude a student ID with -sid <id>\n";
@@ -181,9 +191,9 @@ int main(int argc, char *argv[])
     	return EXIT_FAILURE;
     }
 
-    int nameArgInt = findArg(argc, argv, "-n");
+    int nameArgInt = findArg(argc, argv, "-name");
     if (!nameArgInt || isLastArg(argc, nameArgInt)) {
-		cout << "Please proviude a student name with -n <name>\n";
+		cout << "Please proviude a student name with -name <name>\n";
     }
 
     string name = "";
@@ -211,7 +221,7 @@ int main(int argc, char *argv[])
     
     // Below this we know there is a name and a sid thats a number
 
-    int phoneArgInt = findArg(argc, argv, "-p");
+    int phoneArgInt = findArg(argc, argv, "-phone");
     int phone = 0;
     if (phoneArgInt && !isLastArg(argc, phoneArgInt)) {
         if (!isLastArg(argc, phoneArgInt + 1) && argv[phoneArgInt + 2][0] != '-') {
@@ -228,8 +238,8 @@ int main(int argc, char *argv[])
 		}
 	}
 
-    int enrollmentsArgInt = findArg(argc, argv, "-e");
-    int gradesArgInt = findArg(argc, argv, "-g");
+    int enrollmentsArgInt = findArg(argc, argv, "-modulecodes");
+    int gradesArgInt = findArg(argc, argv, "-grades");
 
     vector<string> enrollments;
     vector<float> grades;
@@ -267,18 +277,30 @@ int main(int argc, char *argv[])
 				return EXIT_FAILURE;
 			}
 		} else {
-			cout << "Please proviude grades with -g <grade1> <grade2> ... <gradeN>\n";
+			cout << "Please proviude grades with -grades <grade1> <grade2> ... <gradeN>\n";
 			return EXIT_FAILURE;
 		}
     }
     else if (gradesArgInt && !isLastArg(argc, gradesArgInt)) {
-        cout << "Please proviude enrollments with -e <enrollment1> <enrollment2> ... <enrollmentN>\n";
+        cout << "Please proviude enrollments with -modulecodes <enrollment1> <enrollment2> ... <enrollmentN>\n";
         return EXIT_FAILURE;
     }
 
     addRecord(dataBaseName, sid, name, phone, grades, enrollments, gradesLen);
 
     return EXIT_SUCCESS;
+}
+
+// A function to count the amount of times a string apears
+int countOf(string arg, char* argv[], int argc)
+{
+    int count = 0;
+    for (int i = 0; i < argc; i++) {
+        string s1(argv[i]);
+
+        if (arg == s1) count++;
+    }
+    return count;
 }
 
 void addRecord(string fileName, int sid, string name, int phone, vector<float> grades, vector<string> enrollments, int gradesLen) {

@@ -12,6 +12,7 @@ using namespace std;
 //See bottom of main
 int findArg(int argc, char *argv[], string pattern);
 bool isLastArg(int argc, int argi);
+int countOf(string arg, char* argv[], int argc);
 
 /*
  *
