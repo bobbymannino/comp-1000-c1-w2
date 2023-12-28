@@ -103,6 +103,8 @@ using namespace std;
 int findArg(int argc, char* argv[], string pattern);
 bool isLastArg(int argc, int argi);
 void updateRecord(string fileName, int sid, string name, int phoneNumber, vector<float> grades, vector<string> enrollments, int gradesLen);
+void checkFlags(char* argv[], vector<string> flags, int argc);
+int countOf(string arg, char* argv[], int argc);
 
 int main(int argc, char* argv[])
 {
@@ -116,6 +118,8 @@ int main(int argc, char* argv[])
         //Done
         return EXIT_SUCCESS;
     }
+
+    checkFlags(argv, { "-db", "-sid", "-name", "-phone", "-modulecodes", "-grades" }, argc);
 
     string dataBaseName;
     int p = findArg(argc, argv, "-db");
@@ -287,6 +291,30 @@ int main(int argc, char* argv[])
     updateRecord(dataBaseName, sid, newName, newPhone, newGrades, newEnrollments, newGradesLen);
 
     return EXIT_SUCCESS;
+}
+
+// Checks no more then one of each flag exists
+void checkFlags(char* argv[], vector<string> flags, int argc)
+{
+    for (string flag : flags)
+    {
+        if (countOf(flag, argv, argc) > 1) {
+            cerr << "Please provide only one " << flag << " flag" << endl;
+            return exit(EXIT_FAILURE);
+        }
+    }
+}
+
+// A function to count the amount of times a string apears
+int countOf(string arg, char* argv[], int argc)
+{
+    int count = 0;
+    for (int i = 0; i < argc; i++) {
+        string s1(argv[i]);
+
+        if (arg == s1) count++;
+    }
+    return count;
 }
 
 // Find an argument on the command line and return the location
