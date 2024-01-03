@@ -40,6 +40,9 @@ void MainWindow::on_action_Open_Database_triggered()
         file.close();
 
         ui->nameLabel->setText(fileContents);
+        vector<Record> db = stringToRecords(fileContents.toStdString());
+        ui->nameLabel->setText(QString::fromStdString(db[0].name));
+
     } else {
         QMessageBox::information(nullptr, "Alert", "Failed to open file");
     }
@@ -178,5 +181,8 @@ try
     return {};
 
 } //end try
+
+return db;
+
 
 }
