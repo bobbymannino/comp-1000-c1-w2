@@ -11,11 +11,9 @@
 #include <QMessageBox>
 #include <vector>
 #include <string>
-
+#include <sstream>
 
 using namespace std;
-
-vector<Record> isStringRecords(QString data);
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -45,7 +43,7 @@ void MainWindow::on_action_Open_Database_triggered()
     }
 }
 
-
+vector<Record> stringToRecords(string str) {
 vector<Record> db;
 
 //Locals used for navigating the database file
@@ -75,7 +73,7 @@ map<string,state_t> nextState = {
 };
 
 
-
+stringstream ip(str);
 try
 {
     //Read the next line (loop exits on end of file)
@@ -172,13 +170,11 @@ try
     }
 
     //Close the file - we are done reading it. Everything is now in the db vector
-    ip.close();
 
 }  catch (exception e) {
-    //Many things could go wrong, so we catch them here, tell the user and close the file (tidy up)
-    ip.close();
-    cout << "Error reading data" << endl;
-    cerr << e.what() << endl;
-    return EXIT_FAILURE;
+    QMessageBox::information(nullptr, "Alert", "Failed to read file");
+    return {};
+
 } //end try
 
+}
