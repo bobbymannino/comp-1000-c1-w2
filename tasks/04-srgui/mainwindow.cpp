@@ -42,6 +42,10 @@ void MainWindow::on_action_Open_Database_triggered()
         ui->nameLabel->setText(fileContents);
         vector<Record> db = stringToRecords(fileContents.toStdString());
         ui->nameLabel->setText(QString::fromStdString(db[0].name));
+        ui->phoneLabel->setText(QString::fromStdString(db[0].phone));
+        ui->sidLabel->setText(QString::number(db[0].SID));
+
+
 
     } else {
         QMessageBox::information(nullptr, "Alert", "Failed to open file");

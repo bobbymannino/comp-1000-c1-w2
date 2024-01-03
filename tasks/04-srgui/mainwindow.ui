@@ -51,7 +51,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="labelSID">
+         <widget class="QLabel" name="sidLabel">
           <property name="text">
            <string>00000</string>
           </property>
@@ -113,7 +113,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="labelPHONE">
+         <widget class="QLabel" name="phoneLabel">
           <property name="text">
            <string>00-11-222333</string>
           </property>
@@ -197,7 +197,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>37</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">

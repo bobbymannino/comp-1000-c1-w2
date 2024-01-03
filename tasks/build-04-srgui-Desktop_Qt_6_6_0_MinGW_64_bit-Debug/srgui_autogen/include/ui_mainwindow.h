@@ -43,7 +43,7 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label;
-    QLabel *labelSID;
+    QLabel *sidLabel;
     QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_3;
@@ -51,7 +51,7 @@ public:
     QSpacerItem *horizontalSpacer_2;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_2;
-    QLabel *labelPHONE;
+    QLabel *phoneLabel;
     QTableWidget *tableWidget;
     QMenuBar *menubar;
     QMenu *menu_File;
@@ -101,10 +101,10 @@ public:
 
         horizontalLayout_2->addWidget(label);
 
-        labelSID = new QLabel(centralwidget);
-        labelSID->setObjectName("labelSID");
+        sidLabel = new QLabel(centralwidget);
+        sidLabel->setObjectName("sidLabel");
 
-        horizontalLayout_2->addWidget(labelSID);
+        horizontalLayout_2->addWidget(sidLabel);
 
 
         horizontalLayout_5->addLayout(horizontalLayout_2);
@@ -139,10 +139,10 @@ public:
 
         horizontalLayout_4->addWidget(label_2);
 
-        labelPHONE = new QLabel(centralwidget);
-        labelPHONE->setObjectName("labelPHONE");
+        phoneLabel = new QLabel(centralwidget);
+        phoneLabel->setObjectName("phoneLabel");
 
-        horizontalLayout_4->addWidget(labelPHONE);
+        horizontalLayout_4->addWidget(phoneLabel);
 
 
         horizontalLayout_5->addLayout(horizontalLayout_4);
@@ -183,7 +183,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 37));
+        menubar->setGeometry(QRect(0, 0, 800, 21));
         menu_File = new QMenu(menubar);
         menu_File->setObjectName("menu_File");
         MainWindow->setMenuBar(menubar);
@@ -214,11 +214,11 @@ public:
         buttonPrev->setText(QCoreApplication::translate("MainWindow", "<<", nullptr));
         buttonNext->setText(QCoreApplication::translate("MainWindow", ">>", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Student ID:", nullptr));
-        labelSID->setText(QCoreApplication::translate("MainWindow", "00000", nullptr));
+        sidLabel->setText(QCoreApplication::translate("MainWindow", "00000", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "Name:", nullptr));
         nameLabel->setText(QCoreApplication::translate("MainWindow", "Foo Bar", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "Phone:", nullptr));
-        labelPHONE->setText(QCoreApplication::translate("MainWindow", "00-11-222333", nullptr));
+        phoneLabel->setText(QCoreApplication::translate("MainWindow", "00-11-222333", nullptr));
 
         const bool __sortingEnabled = tableWidget->isSortingEnabled();
         tableWidget->setSortingEnabled(false);
