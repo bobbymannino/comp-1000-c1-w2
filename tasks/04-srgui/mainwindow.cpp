@@ -15,6 +15,8 @@
 
 using namespace std;
 
+vector<Record> stringToRecords(string str);
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
