@@ -22,11 +22,24 @@ int currentRecord = 0;
 int maxRecords = 0;
 vector<Record> db = {};
 
+Record emptyRecord = {
+    0,
+    "",
+    {},
+    {},
+    ""
+};
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ui->buttonNext->setDisabled(true);
+    ui->buttonPrev->setDisabled(true);
+
+    setUI(emptyRecord, ui);
 }
 
 MainWindow::~MainWindow()
@@ -76,6 +89,8 @@ void MainWindow::on_action_Open_Database_triggered()
     } else {
         ui->buttonPrev->setDisabled(true);
         ui->buttonNext->setDisabled(true);
+
+        setUI(emptyRecord, ui);
 
         QMessageBox::information(nullptr, "Alert", "Failed to open file");
     }
