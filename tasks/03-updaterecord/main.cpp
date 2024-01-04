@@ -193,7 +193,21 @@ int main(int argc, char* argv[])
         // Set new name to argument after name flag
         int nameCount = 0;
         for (int i = nameArgIndex + 1; i < argc; i++) {
-            if (argv[i][0] == '-' || isLastArg(argc, i - 1)) {
+            if (isLastArg(argc, i) && argv[i][0] != '-') {
+                nameCount += 1;
+                newName += argv[i];
+                newName += " ";
+
+                if (nameCount < 2)
+                {
+                    cout << "Please provide a 2 or more words name\n";
+                    return EXIT_FAILURE;
+                }
+
+                break;
+            }
+
+            if (argv[i][0] == '-') {
                 if (nameCount < 2)
                 {
                     cout << "Please provide a 2 or more words name\n";

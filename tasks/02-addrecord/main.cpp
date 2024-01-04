@@ -183,6 +183,7 @@ int main(int argc, char *argv[])
     // if sid is > 0
     if (sid < 1) {
 		cout << "Please proviude a student ID as an int greater then 0\n";
+        return EXIT_FAILURE;
     }
     // if sid is unique
     if (isSidInDb(dataBaseName, sid)) 
@@ -194,12 +195,27 @@ int main(int argc, char *argv[])
     int nameArgInt = findArg(argc, argv, "-name");
     if (!nameArgInt || isLastArg(argc, nameArgInt)) {
 		cout << "Please proviude a student name with -name <name>\n";
+        return EXIT_FAILURE;
     }
 
     string name = "";
     int nameCount = 0;
     for (int i = nameArgInt + 1; i < argc; i++) {
-        if (argv[i][0] == '-' || isLastArg(argc, i - 1)) {
+        if (isLastArg(argc, i) && argv[i][0] != '-') {
+            nameCount += 1;
+            name += argv[i];
+            name += " ";
+
+            if (nameCount < 2)
+            {
+                cout << "Please provide a 2 or more words name\n";
+                return EXIT_FAILURE;
+            }
+
+            break;
+        }
+
+        if (argv[i][0] == '-') {
             if (nameCount < 2) 
             {
                 cout << "Please provide a 2 or more words name\n";
@@ -304,7 +320,7 @@ int countOf(string arg, char* argv[], int argc)
 }
 
 void addRecord(string fileName, int sid, string name, int phone, vector<float> grades, vector<string> enrollments, int gradesLen) {
-    string newRecord  = "\n\n#RECORD\n";
+    string newRecord  = "\n#RECORD\n";
     newRecord += " #SID\n";
     newRecord += "     " + to_string(sid);
     newRecord += "\n #NAME\n";
