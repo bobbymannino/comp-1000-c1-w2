@@ -18,6 +18,10 @@ public:
 private slots:
     void on_action_Open_Database_triggered();
 
+    void on_buttonPrev_clicked();
+
+    void on_buttonNext_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
