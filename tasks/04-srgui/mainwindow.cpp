@@ -45,6 +45,21 @@ void MainWindow::on_action_Open_Database_triggered()
         ui->phoneLabel->setText(QString::fromStdString(db[0].phone));
         ui->sidLabel->setText(QString::number(db[0].SID));
 
+        int newRowCount = db[0].grades.size();
+        ui->tableWidget->setRowCount(newRowCount);
+
+        for (int i = 0; i < newRowCount; i++)
+        {
+            QString courseName = QString::fromStdString(db[0].enrollments[i]);
+            QTableWidgetItem *course = new QTableWidgetItem(courseName);
+            ui->tableWidget->setItem(i, 0, course);
+
+            QString gradeNum = QString::number(db[0].grades[i]);
+            QTableWidgetItem *grade = new QTableWidgetItem(gradeNum);
+            ui->tableWidget->setItem(i, 1, grade);
+        }
+
+
 
 
     } else {
